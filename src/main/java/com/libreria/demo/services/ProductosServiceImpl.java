@@ -9,9 +9,10 @@ public class ProductosServiceImpl {
     private List<Producto> productos = new ArrayList<>(Arrays.asList(
             new Producto(9999, 10),
             new Producto(8888, 5)
+            
     ));
 
-    public List<Producto> geProductos(){
+    public List<Producto> getProductos(){
         return productos;
     }
 }

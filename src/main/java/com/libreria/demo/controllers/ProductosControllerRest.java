@@ -1,5 +1,7 @@
 package com.libreria.demo.controllers;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -18,7 +20,18 @@ public class ProductosControllerRest {
 
     @GetMapping
     public ResponseEntity<?> getProductos(){
-        List<Producto> productos = productosService.geProductos();
+        List<Producto> productos = productosService.getProductos();
+        return ResponseEntity.ok(productos);
+    }
+
+
+    public ResponseEntity<?> fakeProductosAPI(){
+        
+        List<Producto> productos = new ArrayList<>(Arrays.asList(
+            new Producto(55555, 88),
+            new Producto(2222, 99),
+            new Producto(333333, 55)
+        ));
         return ResponseEntity.ok(productos);
     }
 }
