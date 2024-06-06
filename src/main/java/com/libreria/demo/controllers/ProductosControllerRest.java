@@ -28,9 +28,9 @@ public class ProductosControllerRest {
     public ResponseEntity<?> fakeProductosAPI(){
         
         List<Producto> productos = new ArrayList<>(Arrays.asList(
-            new Producto(55555, 88),
-            new Producto(2222, 99),
-            new Producto(333333, 55)
+            new Producto("ISBN-111-222-333", 88),
+            new Producto("ISBN-555-666-222", 99),
+            new Producto("ISBN-777-555-111", 55)
         ));
         return ResponseEntity.ok(productos);
     }

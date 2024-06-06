@@ -2,19 +2,19 @@ package com.libreria.demo.controllers.domain;
 
 public class Producto {
 
-    private Integer isbn;
+    private String isbn;
     private Integer quantity;
 
 
-    public Producto(Integer isbn, Integer quantity) {
+    public Producto(String isbn, Integer quantity) {
         this.isbn = isbn;
         this.quantity = quantity;
     }
     //Getter and setter
-    public Integer getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
-    public void setIsbn(Integer isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
     public Integer getQuantity() {
