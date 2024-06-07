@@ -7,8 +7,8 @@ import java.util.List;
 public class ProductosServiceImpl {
 
     private List<Producto> productos = new ArrayList<>(Arrays.asList(
-            new Producto("ISBN-999-888-999", 10),
-            new Producto("ISBN-888-777-666", 5)
+            new Producto(1,"ISBN-999-888-999", 10),
+            new Producto(2,"ISBN-888-777-666", 5)
             
     ));
 

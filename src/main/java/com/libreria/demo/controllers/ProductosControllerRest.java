@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,9 +29,9 @@ public class ProductosControllerRest {
     public ResponseEntity<?> fakeProductosAPI(){
         
         List<Producto> productos = new ArrayList<>(Arrays.asList(
-            new Producto("ISBN-111-222-333", 88),
-            new Producto("ISBN-555-666-222", 99),
-            new Producto("ISBN-777-555-111", 55)
+            new Producto(1,"ISBN-111-222-333", 88),
+            new Producto(2,"ISBN-555-666-222", 99),
+            new Producto(3,"ISBN-777-555-111", 55)
         ));
         return ResponseEntity.ok(productos);
     }
