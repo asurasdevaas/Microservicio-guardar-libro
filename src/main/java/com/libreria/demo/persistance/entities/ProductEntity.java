@@ -11,8 +11,7 @@ import jakarta.persistence.Id;
 public class ProductEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)// @GeneratedValue se usa preferiblemente en tipos numericos
     private String isbn;
     private Integer quantity;
 }
