@@ -1,45 +1,84 @@
 package com.libreria.demo.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Service;
-
 import com.libreria.demo.controllers.domain.Producto;
-import com.libreria.demo.persistance.entities.ProductEntity;
-import com.libreria.demo.persistance.repositories.ProductsRepository;
 
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service("BD")
-@ConditionalOnProperty(value = "productos.estrategia", havingValue = "EN_BD")
+import java.sql.Connection;
+/*import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;*/
+import java.sql.Statement;
 
-public class ProductServiceDBImpl implements ProductService{
+/*@Service("BD")
+@ConditionalOnProperty(value = "productos.estrategia", havingValue = "EN_BD")*/
 
-    @Autowired
-    private ProductsRepository productsRepository;
+public class ProductServiceDBImpl {
 
-    public List<Producto> getProductos(){
-        List<ProductEntity> productsEntities = productsRepository.findAll();
-        List<Producto> productos = new ArrayList<>();
-        for(ProductEntity productEntity : productsEntities){
-           
-            Producto producto = new Producto();
-            producto.setIsbn(productEntity.getIsbn());
-            producto.setQuantity(productEntity.getQuantity());
-            productos.add(producto);
+    String url = "jdbc:postgresql://localhost:5432/tienda";
+    String user = "postgres";
+    String password = "1234";
+
+    public List<Producto> getProductos() {
+
+        List<Producto> productStore = new ArrayList<>();
+
+        try (Connection connection = DriverManager.getConnection(url, user, password)) {
+            System.out.println("Conexión establecida con éxito.");
+
+            // Crea un Statement para ejecutar consultas
+            Statement statement = connection.createStatement();
+
+            // Define tu consulta SQL
+            String sql = "SELECT * FROM productos";
+
+            // Ejecuta la consulta y obtiene el resultado
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            // Procesa el resultado
+
+            while (resultSet.next()) {
+                String isbn = resultSet.getString("isbn");
+                int quantity = resultSet.getInt("quantity");
+                Producto producto = new Producto(isbn, quantity);
+                productStore.add(producto);
+                System.out.println("ID: " + isbn + ", Nombre: " + quantity);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al conectar con la base de datos:");
+            e.printStackTrace();
         }
-        return productos;
+        return productStore;
     }
 
-    @Override
     public void saveProducto(Producto producto) {
-        ProductEntity productEntity = new ProductEntity();
-        productEntity.setIsbn(producto.getIsbn());
-        productEntity.setQuantity(producto.getQuantity());
 
-        //Persistencia
-        productsRepository.save(productEntity);
-        
+        try (Connection connection = DriverManager.getConnection(url, user, password)) {
+            System.out.println("Conexión establecida con éxito.");
+
+            // Define tu sentencia SQL de inserción
+            String sql = "INSERT INTO productos (isbn, quantity) VALUES (?, ?)";
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                // Establece los valores de los parámetros
+                preparedStatement.setString(1, producto.getIsbn());
+                preparedStatement.setInt(2, producto.getQuantity());
+
+                // Ejecuta la inserción
+                int rowsAffected = preparedStatement.executeUpdate();
+                System.out.println("Filas insertadas: " + rowsAffected);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al conectar con la base de datos o al insertar datos:");
+            e.printStackTrace();
+        }
+
     }
 }
