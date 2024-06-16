@@ -45,9 +45,10 @@ public class ProductServiceDBImpl {
             while (resultSet.next()) {
                 String isbn = resultSet.getString("isbn");
                 int quantity = resultSet.getInt("quantity");
-                Producto producto = new Producto(isbn, quantity);
+                String supplier = resultSet.getString("supplier");
+                Producto producto = new Producto(isbn, quantity, supplier);
                 productStore.add(producto);
-                System.out.println("ID: " + isbn + ", Nombre: " + quantity);
+                System.out.println("ID: " + isbn + ", Nombre: " + quantity + ", supplier: " + supplier);
             }
 
         } catch (SQLException e) {
@@ -63,12 +64,13 @@ public class ProductServiceDBImpl {
             System.out.println("Conexión establecida con éxito.");
 
             // Define tu sentencia SQL de inserción
-            String sql = "INSERT INTO productos (isbn, quantity) VALUES (?, ?)";
+            String sql = "INSERT INTO productos (isbn, quantity, supplier) VALUES (?, ?, ?)";
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 // Establece los valores de los parámetros
                 preparedStatement.setString(1, producto.getIsbn());
                 preparedStatement.setInt(2, producto.getQuantity());
+                preparedStatement.setString(3, producto.getSupplier());
 
                 // Ejecuta la inserción
                 int rowsAffected = preparedStatement.executeUpdate();

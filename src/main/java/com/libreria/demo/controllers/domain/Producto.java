@@ -4,17 +4,22 @@ public class Producto {
 
     private String isbn;
     private Integer quantity;
+    private String supplier;
 
     public Producto() {
     }
 
-    public Producto(String isbn, Integer quantity) {
-
-        this.isbn = isbn;
-        this.quantity = quantity;
-    }
+    
 
     // Getter and setter
+
+    public Producto(String isbn, Integer quantity, String supplier) {
+        this.isbn = isbn;
+        this.quantity = quantity;
+        this.supplier = supplier;
+    }
+
+
 
     public String getIsbn() {
         return isbn;
@@ -30,6 +35,14 @@ public class Producto {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public String getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
     }
 
 }

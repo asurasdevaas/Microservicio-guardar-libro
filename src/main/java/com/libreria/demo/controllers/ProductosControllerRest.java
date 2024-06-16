@@ -1,6 +1,5 @@
 package com.libreria.demo.controllers;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.libreria.demo.controllers.domain.Producto;
-import com.libreria.demo.services.ProductService;
 import com.libreria.demo.services.ProductServiceDBImpl;
 
 @RestController
@@ -40,9 +38,9 @@ public class ProductosControllerRest {
     public ResponseEntity<?> fakeProductosAPI() {
 
         List<Producto> productos = new ArrayList<>(Arrays.asList(
-                new Producto("ISBN-111-222-333", 88),
-                new Producto("ISBN-555-666-222", 99),
-                new Producto("ISBN-777-555-111", 55)));
+                new Producto("ISBN-111-222-333", 88, "Norma"),
+                new Producto("ISBN-555-666-222", 99, "UN"),
+                new Producto("ISBN-777-555-111", 55, "Panamericana")));
         return ResponseEntity.ok(productos);
     }
 }
