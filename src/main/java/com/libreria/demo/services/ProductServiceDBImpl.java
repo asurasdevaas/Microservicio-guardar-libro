@@ -20,9 +20,14 @@ import java.sql.Statement;
 
 public class ProductServiceDBImpl {
 
-    String url = "jdbc:postgresql://localhost:5432/tienda";
+
+    String url = "jdbc:postgresql://monorail.proxy.rlwy.net:39686/railway";
     String user = "postgres";
-    String password = "1234";
+    String password = "tVvlwTnnBIlKQnqFfrcHyZviXceCWUfX";
+
+    /*String url = "jdbc:postgresql://localhost:5432/tienda";
+    String user = "postgres";
+    String password = "1234";*/
 
     public List<Producto> getProductos() {
 
@@ -35,7 +40,7 @@ public class ProductServiceDBImpl {
             Statement statement = connection.createStatement();
 
             // Define tu consulta SQL
-            String sql = "SELECT * FROM productos";
+            String sql = "SELECT * FROM books";
 
             // Ejecuta la consulta y obtiene el resultado
             ResultSet resultSet = statement.executeQuery(sql);
@@ -48,7 +53,7 @@ public class ProductServiceDBImpl {
                 String supplier = resultSet.getString("supplier");
                 Producto producto = new Producto(isbn, quantity, supplier);
                 productStore.add(producto);
-                System.out.println("ID: " + isbn + ", Nombre: " + quantity + ", supplier: " + supplier);
+                System.out.println("ID: " + isbn + ", Nombre: " + quantity + ", Supplier: " + supplier);
             }
 
         } catch (SQLException e) {
@@ -64,7 +69,7 @@ public class ProductServiceDBImpl {
             System.out.println("Conexión establecida con éxito.");
 
             // Define tu sentencia SQL de inserción
-            String sql = "INSERT INTO productos (isbn, quantity, supplier) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO books (isbn, quantity, supplier) VALUES (?, ?, ?)";
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 // Establece los valores de los parámetros
